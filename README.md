@@ -1,5 +1,7 @@
 # Pose Estimation and Analysis for Powerlifting
 
+![Pose estimation of barbell squat](/screenshot.png?raw=true)
+
 ## Notice
 ```
 ********************************************************************************
@@ -28,7 +30,7 @@ The required packages can be installed via:
 
 ### Running
 The program runs from the command line:
-`python3 program.py`
+`python3 main.py`
 
 ### Program Arguments
     - `--help`

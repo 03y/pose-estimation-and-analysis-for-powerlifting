@@ -1,0 +1,12 @@
+# envs
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# output files
+*_output.mp4
+

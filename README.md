@@ -22,15 +22,13 @@ This project uses Mediapipe BlazePose human pose estimation to analyse the barbe
 ## Usage
 ### Dependencies
 - Ubuntu 20.04 or later is recommended.
-- Python 3 with PIP
+- Python 3 with PIP.
 
 #### Install required packages
-The required packages can be installed via:
-`pip3 install -r requirements.txt`
+The required packages can be installed via `pip3 install -r requirements.txt`.
 
 ### Running
-The program runs from the command line:
-`python3 main.py`
+The program runs from the command line `python3 main.py`.
 
 ### Program Arguments
     - `--help`
@@ -57,7 +55,7 @@ The program should be provided with an mp4 video file containing footage of eith
 
 Example input data is provided in the [input data](input_data) folder.
 
-The exercise will be automatically identified by the program. If you have trouble with this, try the `--movement <squat/deadlift` argument to override this automatic identification.
+The exercise will be automatically identified by the program. If you have trouble with this, try the `--movement <squat/deadlift>` argument to override this automatic identification.
 
 Analysing a video typically processes at half real time, ideally input videos are around 10 seconds or less.
 

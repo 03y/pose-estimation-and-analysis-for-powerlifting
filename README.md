@@ -64,3 +64,8 @@ Analysing a video typically processes at half real time, ideally input videos ar
 ### Output
 When finished, the program will print to the console a list of metrics gathered, and a file `name_output.mp4` (from the input `name.mp4`).
 
+- This video will have the landmarks of the subject rendered as red nodes, with green edges connecting them.
+- The top left shows some of the metrics as they are being gathered.
+- At the left wrist of the lifter is the 'drop count'. This metric determines if the bar has dropped before the apex of the lift.
+- When analysing a barbell squat, two angles of the lat and knee will be rendered. The greener the text, the acuter the angle.
+

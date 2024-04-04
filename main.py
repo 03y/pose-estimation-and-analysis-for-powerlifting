@@ -127,8 +127,8 @@ def main():
             landmarks = results.pose_landmarks.landmark
             world_landmarks = results.pose_world_landmarks.landmark
         except Exception as e:
-            # print(e)
-            pass
+            print('Warning: Pose estimation failed for frame', frames_processed)
+            continue
 
         if landmarks:
             if dry_run == False:

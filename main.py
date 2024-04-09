@@ -20,10 +20,10 @@ def notice():
 *    Kyle Moir <katm2000@hw.ac.uk>                                             *
 *    2023-2024                                                                 *
 *                                                                              *
-*    NEITHER THIS APPLICATION NOR ITS DEVELOPERS ARE LIABALE FOR ANY INJURY    *
+*    NEITHER THIS APPLICATION NOR ITS DEVELOPERS ARE LIABLE FOR ANY INJURY     *
 *    CAUSED AS A RESULT OF THIS PROGRAM.                                       *
 *                                                                              *
-*    Always take care when practicing powerlifting.                            *
+*    Always take care when practising powerlifting.                            *
 ********************************************************************************
     ''')
 
@@ -189,10 +189,10 @@ def main():
 
 
                     if begin_lift == -1:
-                        if lat_ang < 165:
+                        if lat_ang < 160:
                             begin_lift = frames_processed
                     elif metrics[2] == -1:
-                        if lat_ang >= 165:
+                        if lat_ang >= 160:
                             metrics[2] = (frames_processed - begin_lift) / fps
 
                     time_txt = -1
@@ -310,7 +310,7 @@ def deadlift_output(metrics):
     '''
 
     print('\nComplete lift:', metrics[0])
-    print('Doward movement:', metrics[1])
+    print('Downward movement:', metrics[1])
     print('Time (s):', round(metrics[2], 2))
 
 def output(metrics):

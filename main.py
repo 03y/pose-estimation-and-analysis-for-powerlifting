@@ -184,8 +184,8 @@ def main():
                     leg_ang = angle(l_hip, l_knee, l_ankle)
                     lat_ang = angle(l_shoulder, l_hip, l_knee)
 
-                    render_text(frame, str(leg_ang), tuple(np.multiply(l_knee, [video_capture.get(3), video_capture.get(4)]).astype(int)), fg_colour=colour_scale(leg_ang/180))
-                    render_text(frame, str(lat_ang), tuple(np.multiply(l_hip, [video_capture.get(3), video_capture.get(4)]).astype(int)), fg_colour=colour_scale(lat_ang/180))
+                    render_text(frame, str(round(leg_ang, 1)), tuple(np.multiply(l_knee, [video_capture.get(3), video_capture.get(4)]).astype(int)), fg_colour=colour_scale(leg_ang/180))
+                    render_text(frame, str(round(lat_ang, 1)), tuple(np.multiply(l_hip, [video_capture.get(3), video_capture.get(4)]).astype(int)), fg_colour=colour_scale(lat_ang/180))
 
 
                     if begin_lift == -1:

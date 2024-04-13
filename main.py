@@ -38,6 +38,8 @@ Authors:
     Kyle Moir   <katm2000@hw.ac.uk>
     ''')
 
+# Render text on the output video
+# Default colour is green
 def render_text(frame, text, coords, fg_colour=(0, 255, 0)):
     bg_colour = (0, 0, 0)
     fg_thickness = 3
@@ -46,22 +48,25 @@ def render_text(frame, text, coords, fg_colour=(0, 255, 0)):
     cv2.putText(frame, text, coords, cv2.FONT_HERSHEY_SIMPLEX, 1.5, bg_colour, bg_thickness, cv2.LINE_AA)
     cv2.putText(frame, text, coords, cv2.FONT_HERSHEY_SIMPLEX, 1.5, fg_colour, fg_thickness, cv2.LINE_AA)
 
+# Print progress bar with fstring
 def progress_bar(iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '#', printEnd = "\r"):
     # https://stackoverflow.com/questions/3173320/text-progress-bar-in-terminal-with-block-characters
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
     filledLength = int(length * iteration // total)
     bar = fill * filledLength + '-' * (length - filledLength)
     print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
-    # Print New Line on Complete
+    # print new line on complete
     if iteration == total: 
         print()
 
+# Calculate the angle between three 2D screen space coordinates
 def angle(a, b, c):
     a, b, c = np.array(a), np.array(b), np.array(c)
 
     rad = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
     deg = np.abs(rad*180.0/np.pi)
 
+    # normalise the output to 180deg (because our knees should only bend one way)
     if deg > 180.0:
         deg = 360-deg
 
@@ -69,8 +74,8 @@ def angle(a, b, c):
 
 def colour_scale(percentage):
     pct_diff = 1.0 - percentage
-    red = min(255, pct_diff*2 * 255)
-    green = min(255, percentage*2 * 255)
+    red = min(255, pct_diff*2*255)
+    green = min(255, percentage*2*255)
 
     return (0, red, green)
 
@@ -95,6 +100,7 @@ def main():
 
     print('Analysing video input: ', video_input)
 
+    # setup ffmpeg for reading & writing
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     output_destination = video_input.split('.')[0] + '_output.mp4'
     fps = video_capture.get(cv2.CAP_PROP_FPS)
@@ -110,6 +116,7 @@ def main():
     bar_drop = 0
     apex = 999
 
+    # for each frame of our input
     while video_capture.isOpened():
         progress_bar(frames_processed, frame_count, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
@@ -148,9 +155,6 @@ def main():
 
                     apex = min((world_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y + world_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y) / 2, apex)
 
-    #                render_text(frame, str(apex), (50, 500))
-    #                render_text(frame, str((world_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y + world_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y) / 2), (50, 550))
-
                     if last_world_landmarks:
                         if (world_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y + world_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y) / 2 > apex:
                             if (world_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y + world_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y) / 2 < (last_world_landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y + last_world_landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y) / 2:
@@ -186,7 +190,6 @@ def main():
 
                     render_text(frame, str(round(leg_ang, 1)), tuple(np.multiply(l_knee, [video_capture.get(3), video_capture.get(4)]).astype(int)), fg_colour=colour_scale(leg_ang/180))
                     render_text(frame, str(round(lat_ang, 1)), tuple(np.multiply(l_hip, [video_capture.get(3), video_capture.get(4)]).astype(int)), fg_colour=colour_scale(lat_ang/180))
-
 
                     if begin_lift == -1:
                         if lat_ang < 160:
@@ -284,7 +287,7 @@ def main():
    
     if debug:
         print('Finished processing', frames_processed, 'frames in', int(time.time())-start, 's!')
-  
+    
     output(metrics)
 
 def squat_output(metrics):
